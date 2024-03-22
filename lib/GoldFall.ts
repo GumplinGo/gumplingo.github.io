@@ -26,17 +26,17 @@ function getRandom(key: 'x' | 'y' | 's' | 'r' | 'fnx' | 'fny' | 'fnr'): number |
     case 'r':
       return Math.random() * 6;
     case 'fnx':
-      random = -0.5 + Math.random() * 1;
+      random = -0.3 + Math.random() * 0.5;
       return function(x:number) {
-        return x + 0.5 * random - 1.7;
+        return x + 0.5 * random - 1;
       };
     case 'fny':
-      random = 1.5 + Math.random() * 0.7
+      random = 0.5 + Math.random() * 0.7
       return function(y:number) {
         return y + random;
       };
     case 'fnr':
-      random = Math.random() * 0.03;
+      random = Math.random() * 0.01;
       return function(r:number) {
         return r + random;
       };
@@ -48,13 +48,14 @@ function getRandom(key: 'x' | 'y' | 's' | 'r' | 'fnx' | 'fny' | 'fnr'): number |
 let stopId: number;
 let isPlaying = false;
 
-class Sakura {
+class Gold {
   x: number;
   y: number;
   s: number;
   r: number;
   fn: Fn;
   img: HTMLImageElement;
+  baseSize: number = 40;
   constructor(x:number, y:number, s:number, r:number, fn: Fn, img: HTMLImageElement) {
     this.x = x;
     this.y = y;
@@ -66,10 +67,19 @@ class Sakura {
 
   draw (cxt: CanvasRenderingContext2D) {
     cxt.save();
-    var xc = 40 * this.s / 4;
     cxt.translate(this.x, this.y);
     cxt.rotate(this.r);
-    cxt.drawImage(this.img, 0, 0, 40 * this.s, 40 * this.s)
+    let img = this.img;
+    // 保持图片比例
+    const width = img.width;
+    const height = img.height;
+    const rate = width / height;
+    const baseSize = this.baseSize;
+    if (rate > 1) {
+      cxt.drawImage(img, 0, 0, baseSize * this.s, baseSize / rate * this.s)
+    } else {
+      cxt.drawImage(img, 0, 0, baseSize * rate * this.s, baseSize * this.s)
+    }
     cxt.restore();
   }
 
@@ -77,18 +87,19 @@ class Sakura {
     this.x = this.fn.x(this.x);
     this.y = this.fn.y(this.y);
     this.r = this.fn.r(this.r);
-    if(this.x > window.innerWidth ||
-      this.x < 0 ||
-      this.y > window.innerHeight ||
-      this.y < 0
+    const baseSize = this.baseSize;
+    if(this.x > window.innerWidth + baseSize ||
+      this.x < -baseSize ||
+      this.y > window.innerHeight + baseSize ||
+      this.y < -baseSize
     ) {
       if(Math.random() > 0.4) {
         this.x = getRandom('x');
-        this.y = 0;
+        this.y = -baseSize;
         this.s = getRandom('s');
         this.r = getRandom('r');
       } else {
-        this.x = window.innerWidth;
+        this.x = window.innerWidth + baseSize;
         this.y = getRandom('y');
         this.s = getRandom('s');
         this.r = getRandom('r');
@@ -98,14 +109,14 @@ class Sakura {
 
 }
 
-class SakuraList {
-  list: Sakura[];
+class GoldList {
+  list: Gold[];
   constructor() {
     this.list = [];
   }
 
-  push(sakura: Sakura) {
-    this.list.push(sakura);
+  push(gold: Gold) {
+    this.list.push(gold);
   }
 
   update() {
@@ -131,53 +142,74 @@ class SakuraList {
   }
 }
 
-function startSakura(img: HTMLImageElement) {
+const loadImg= (src: string) => {
+  return new Promise<HTMLImageElement>((res, rej) => {
+    const img = new Image()
+    img.src = src;
+    img.onload = () => {
+      res(img)
+    }
+    img.onerror = () => {
+      rej('load img failed')
+    }
+  })
+}
 
+async function startGold() {
+  const imgPaths = [
+    '/images/fall-icon/clover.png',
+    // '/fall-icon/gold.png',
+    '/images/fall-icon/petal.png',
+    // '/fall-icon/wealth-god.png',
+    // '/fall-icon/god-wealth.png',
+  ]
+  const imgs = await Promise.all(imgPaths.map(path => loadImg(path)))
   const requestAnimationFrame = window.requestAnimationFrame
   const canvas = document.createElement('canvas')
   isPlaying = true;
   canvas.height = window.innerHeight;
   canvas.width = window.innerWidth;
   canvas.setAttribute('style', 'position: fixed;left: 0;top: 0;pointer-events: none;');
-  canvas.setAttribute('id', 'canvas_sakura');
+  canvas.setAttribute('id', 'canvas_gold');
   document.getElementsByTagName('body')[0].appendChild(canvas);
-  const cxt = canvas.getContext('2d') as CanvasRenderingContext2D;
-  const sakuraList = new SakuraList();
+  const cxt = canvas.getContext('2d')!;
+  const goldList = new GoldList();
   for(let i = 0; i < 50; i++) {
-    var sakura, randomX, randomY, randomS, randomR, randomFnx, randomFny, randomFnR;
-    randomX = getRandom('x') as number;
-    randomY = getRandom('y') as number;
-    randomR = getRandom('r') as number;
-    randomS = getRandom('s') as number;
-    randomFnx = getRandom('fnx') as ValueOfFn;
-    randomFny = getRandom('fny') as ValueOfFn;
-    randomFnR = getRandom('fnr') as Fn['r'];
-    sakura = new Sakura(randomX, randomY, randomS, randomR, {
+    const img = imgs[Math.floor(Math.random() * imgs.length)]
+    var gold, randomX, randomY, randomS, randomR, randomFnx, randomFny, randomFnR;
+    randomX = getRandom('x');
+    randomY = getRandom('y');
+    randomR = getRandom('r');
+    randomS = getRandom('s');
+    randomFnx = getRandom('fnx');
+    randomFny = getRandom('fny');
+    randomFnR = getRandom('fnr');
+    gold = new Gold(randomX, randomY, randomS, randomR, {
       x: randomFnx,
       y: randomFny,
       r: randomFnR
     }, img);
-    sakura.draw(cxt);
-    sakuraList.push(sakura);
+    gold.draw(cxt);
+    goldList.push(gold);
   }
   stopId = requestAnimationFrame(function loop() {
     cxt.clearRect(0, 0, canvas.width, canvas.height);
-    sakuraList.update();
-    sakuraList.draw(cxt);
+    goldList.update();
+    goldList.draw(cxt);
     stopId = requestAnimationFrame(loop);
   })
 
   window.onresize = function() {
-    var canvasSnow = document.getElementById('canvas_snow') as HTMLCanvasElement;
+    var canvasSnow = document.getElementById('canvas_gold') as HTMLCanvasElement;
     canvasSnow.width = window.innerWidth;
     canvasSnow.height = window.innerHeight;
   }
 }
 
 
-function stopSakura() {
+function stopGold() {
   if(isPlaying) {
-    var child = document.getElementById("canvas_sakura")!;
+    var child = document.getElementById("canvas_gold")!;
     child.parentNode!.removeChild(child);
     window.cancelAnimationFrame(stopId);
     isPlaying = false;
@@ -185,6 +217,6 @@ function stopSakura() {
 }
 
 export default {
-  startSakura,
-  stopSakura
+  startGold,
+  stopGold
 }
