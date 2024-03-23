@@ -7,6 +7,9 @@ export default defineNuxtConfig({
   // devServer: {
   //   host: '10.0.16.229'
   // },
+  app: {
+    buildAssetsDir: 'nuxt_assets',
+  },
   vite: {
     css: {
       preprocessorOptions: {
