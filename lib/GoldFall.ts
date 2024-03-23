@@ -157,7 +157,8 @@ const loadImg= (src: string) => {
 
 async function startGold() {
   const imgPaths = [
-    '/images/fall-icon/clover.png',
+    // '/images/fall-icon/clover.png',
+    '/images/fall-icon/green-leaves.png',
     // '/fall-icon/gold.png',
     '/images/fall-icon/petal.png',
     // '/fall-icon/wealth-god.png',

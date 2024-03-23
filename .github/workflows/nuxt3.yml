@@ -1,0 +1,35 @@
+name: Deploy Nuxt3 App to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # 根据实际的主分支名称修改
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # 使用适合的 Node.js 版本
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install Dependencies
+        run: pnpm install # 或 yarn install，根据你的偏好选择
+
+      - name: Generate Static Site
+        run: pnpm generate # 或者其他生成静态站点的命令，具体取决于你的 Nuxt.js 配置
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: main # 修改为你的 GitHub Pages 分支名
+          FOLDER: .output/public # 修改为 Nuxt.js 生成的静态文件夹名称

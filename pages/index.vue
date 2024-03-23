@@ -1,7 +1,7 @@
 <template>
   <div class="wrap" ref="el" @mouseleave="handleMouseLeave">
     <div class="home" ref="home" :style="{ backgroundPosition: bgPosition }"></div>
-    <div class="content" ref="content" :style="{ transform: rotateTransform, '--angle': computedAngle }">
+    <div class="content" ref="content" :style="{ '--angle': computedAngle }">
       <h1 class="title">小江大浪的个人空间</h1>
       <p>昵称：小江大浪， 英文名：Gumplin Go</p>
       <p>大学一本本科，毕业于2019年， 至今已经搬砖 {{ year }} 年了</p>
@@ -11,6 +11,23 @@
       <hr class="hr">
       <p>Life is a fucking movie! 人生如戏，明天面对的的永远不知道是惊吓还是惊喜</p>
       <p>人真的很渺小，顺势而为， 努力生活</p>
+      <p class="icon-wrap">
+        <a href="https://github.com/GumplinGo" target="_blank">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-github"></use>
+          </svg>
+        </a>
+        <a href="https://juejin.cn/user/1292681405797991" target="_blank">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-juejin"></use>
+          </svg>
+        </a>
+        <a href="https://gitee.com/GumplinGo" target="_blank">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-gitee"></use>
+          </svg>
+        </a>
+      </p>
     </div>
   </div>
 
@@ -38,8 +55,8 @@ const content = ref<HTMLElement | null>(null)
 const { width, height } = useElementSize(el)
 const { x, y } = useMouse()
 const bgPosition = computed(() => {
-  const xAxis = 50 + (x.value / width.value - 0.5) * 3
-  const yAxis = 50 + (y.value / height.value - 0.5) * 3
+  const xAxis = 50 + (x.value / width.value - 0.5) * 5
+  const yAxis = 50 + (y.value / height.value - 0.5) * 5
   return `${xAxis}% ${yAxis}%`
 })
 
@@ -95,8 +112,9 @@ const year = (diff / (1000 * 60 * 60 * 24 * 365.25)).toFixed(1);
   position: relative;
   .home {
     height: 100vh;
-    background: url('/images/bg/home-bg.jpg') no-repeat 50% 50% / auto 110% border-box;
-    color: white;
+    background: url('/images/bg/green-bg.jpg') no-repeat 50% 50% / auto 110% border-box;
+    /* color: black; */
+    /* color: white; */
     position: absolute;
     inset: 0;
   }
@@ -106,14 +124,14 @@ const year = (diff / (1000 * 60 * 60 * 24 * 365.25)).toFixed(1);
     box-sizing: border-box;
     width: 67%;
     aspect-ratio: 8/5 auto;
-    backdrop-filter: blur(7px);
+    /* backdrop-filter: blur(7px); */
     background: linear-gradient(var(--angle), rgba(255, 255, 255, 0.07), rgba(0, 0, 0, 0.4));
-    mask: linear-gradient(var(--angle), rgba(255, 255, 255, .2), #fff);
-    box-shadow: 0 20px 40px 1px rgba(0, 0, 0, 0.12);
+    /* mask: linear-gradient(var(--angle), rgba(255, 255, 255, .1), #fff); */
+    box-shadow: 0 20px 40px 1px rgba(234, 167, 235, 0.12);
     position: absolute;
     inset: 50%;
     border-radius: 8px;
-    /* transition: translate 0.3s, --angle 0.3s; */
+    transition: --angle 0.3s;
     transform: translate(-50%, -50%);
     transform-style: preserve-3d;
     box-shadow: 0 20px 40px 1px rgba(0, 0, 0, 0.12),
@@ -127,6 +145,25 @@ const year = (diff / (1000 * 60 * 60 * 24 * 365.25)).toFixed(1);
     align-items: center;
     p {
       margin-bottom: 15px;
+      line-height: 30px;
+      &.icon-wrap {
+        width: 67%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        a {
+          font-size: 25px;
+          height: 30px;
+          width: 40px;
+          display: inline-flex;
+          align-items: center;
+          transition: all 0.3s;
+          &:hover {
+            font-size: 30px;
+          }
+        }
+
+      }
     }
 
     .hr {

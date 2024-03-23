@@ -6,6 +6,7 @@
 
 <script lang="ts" setup>
 import 'reset-css'
+import '~/assets/scss/common.scss'
 
 useHead({
   htmlAttrs: {
@@ -15,6 +16,9 @@ useHead({
   titleTemplate: title => title !== '小江大浪' ? `${title} · 小江大浪` : title,
   meta: [
     { name: 'description', content: '小江大浪的个人空间 ✨' },
+  ],
+  script: [
+    { src: '/iconfont/iconfont.js' },
   ],
 })
 </script>

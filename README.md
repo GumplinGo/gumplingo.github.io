@@ -1,75 +1,14 @@
-# Nuxt 3 Minimal Starter
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Hi, this is Gumplin Go~😄
+> 你好，我是小江大浪~😄
 
-## Setup
 
-Make sure to install the dependencies:
+I am a self-taught programming non-class front-end development, with a full-stack goal and graduated in June 2019.
+> 我是一名自学编程的非科班前端开发，有一个全栈目标，我毕业于2019六月。
 
-```bash
-# npm
-npm install
+I am intermittent efforts to study and fitness, continuous watching animation, playing game 😂
+> 间歇性奋发图强学习和健身，持续性看动漫、打王者😂
 
-# pnpm
-pnpm install
 
-# yarn
-yarn install
 
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+[![Anurag's github stats](https://github-readme-stats.vercel.app/api?username=GumplinGo)](https://github.com/anuraghazra/github-readme-stats)
