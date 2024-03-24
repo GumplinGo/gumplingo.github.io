@@ -105,7 +105,7 @@ const year = (diff / (1000 * 60 * 60 * 24 * 365.25)).toFixed(1);
 }
 
 .wrap {
-  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   transform-style: preserve-3d;
   perspective: 500px;
@@ -122,6 +122,7 @@ const year = (diff / (1000 * 60 * 60 * 24 * 365.25)).toFixed(1);
     padding: 20px;
     --angle: 45deg;
     box-sizing: border-box;
+    text-align: center;
     width: 67%;
     aspect-ratio: 8/5 auto;
     /* backdrop-filter: blur(7px); */
@@ -180,6 +181,21 @@ const year = (diff / (1000 * 60 * 60 * 24 * 365.25)).toFixed(1);
     margin-bottom: 20px;
   }
 
+}
+
+@media screen and (max-width: 800px) {
+  .wrap {
+    .content {
+      width: 95%;
+
+      h1 {
+        font-size: 20px;
+      }
+      p {
+        font-size: 12px;
+      }
+    }
+  }
 }
 </style>
 

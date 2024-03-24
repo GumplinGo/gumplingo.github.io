@@ -5,7 +5,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
   ],
   // devServer: {
-  //   host: '10.0.16.229'
+  //   host: '192.168.1.7'
   // },
   app: {
     buildAssetsDir: 'nuxt_assets',
