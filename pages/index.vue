@@ -112,7 +112,7 @@ const year = (diff / (1000 * 60 * 60 * 24 * 365.25)).toFixed(1);
   position: relative;
   .home {
     height: 100vh;
-    background: url('/images/bg/green-bg.jpg') no-repeat 50% 50% / auto 110% border-box;
+    background: url('/images/bg/green-bg.jpg') no-repeat 50% 50% / 110% 110% border-box;
     /* color: black; */
     /* color: white; */
     position: absolute;
