@@ -185,6 +185,9 @@ const year = (diff / (1000 * 60 * 60 * 24 * 365.25)).toFixed(1);
 
 @media screen and (max-width: 800px) {
   .wrap {
+    .home {
+      background-size: auto 110%;
+    }
     .content {
       width: 95%;
 
