@@ -10,6 +10,9 @@ export default defineNuxtConfig({
   app: {
     buildAssetsDir: 'nuxt_assets',
   },
+  experimental: {
+    payloadExtraction: false
+  },
   vite: {
     css: {
       preprocessorOptions: {
