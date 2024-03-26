@@ -7,12 +7,12 @@ export default defineNuxtConfig({
   // devServer: {
   //   host: '192.168.1.7'
   // },
-  app: {
-    buildAssetsDir: 'nuxt_assets',
-  },
-  experimental: {
-    payloadExtraction: false
-  },
+  // app: {
+  //   buildAssetsDir: 'nuxt_assets',
+  // },
+  // experimental: {
+  //   payloadExtraction: false
+  // },
   vite: {
     css: {
       preprocessorOptions: {
