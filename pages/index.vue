@@ -92,7 +92,7 @@ const start = new Date('2019-06-01');
 const diff = now.getTime() - start.getTime();
 const year = (diff / (1000 * 60 * 60 * 24 * 365.25)).toFixed(1);
 
-
+console.log('666')
 
 
 </script>
