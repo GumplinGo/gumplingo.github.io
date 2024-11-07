@@ -29,6 +29,7 @@
         </a>
       </p>
     </div>
+    <a href="https://beian.miit.gov.cn" class="archival">ICP备案号</a>
   </div>
 
 </template>
@@ -179,6 +180,15 @@ console.log('666')
     margin: 0;
     padding: 0;
     margin-bottom: 20px;
+  }
+
+  .archival {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-size: 12px;
+    text-align: center;
   }
 
 }
