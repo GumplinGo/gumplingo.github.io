@@ -29,7 +29,7 @@
         </a>
       </p>
     </div>
-    <a href="https://beian.miit.gov.cn" class="archival">粤ICP备2024337594号-1</a>
+    <!-- <a href="https://beian.miit.gov.cn" class="archival">粤ICP备2024337594号-1</a> -->
   </div>
 
 </template>
